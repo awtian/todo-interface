@@ -2,25 +2,74 @@
   <div class="navcont">
     <div class="navbar">
       <div class="title">todo.</div>
-      <div class="menu"> 
-        <div>Home</div>
-        <div>Undone Task</div>
-        <div>All Task</div>
+      <div v-if="login" class="menu">
+        <div @click="showCreate">New Todo</div>
+        <div @click="loadAll()">All Tasks</div>
+        <div @click="loadUndone()">Undone Tasks</div>
+        <div @click="loadDone()">Done Tasks</div>
+        <div @click="toggleLogin(false)" >Logout</div>
       </div>
-      <div class="search">
+      <!-- <div v-if= "login" class="search">
         <input id="searchbox" type="text" placeholder="search to-dos!🔎">
-      </div>
+      </div> -->
     </div>
+  <modal name="createtodo"> 
+    <div class="modalcontent">
+      <h3>Create new Todo</h3>
+      <input type="text" name="title" placeholder="title" v-model="title"> <br />
+      <input type="text" name="description" placeholder="description" v-model="description"> <br />
+      <button class= "addbutton" @click="addtodo()">add todo</button>
+    </div>
+  </modal>
   </div>
 </template>
 
 <script>
+import {mapState, mapMutations} from 'Vuex'
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  computed: mapState(['login']),
+  data: {
+    title: '',
+    description: ''
+  },
+  methods: {
+    ...mapMutations(['posttodo','toggleLogin', 'loadAll', 'loadDone', 'loadUndone']),
+    showCreate () {
+    this.$modal.show('createtodo');
+    },
+    hideCreate () {
+    this.$modal.hide('createtodo');
+    },
+    addtodo(){
+      let payload = {title : this.title, description : this.description}
+      this.posttodo(payload)
+    }
+  },
 }
 </script>
- 
+
 <style>
+.modalcontent{
+  font-family:sans-serif;
+  margin-left: 20px;
+  font-size: 25px;
+}
+input[type="text"]
+{
+    font-size:24px;
+}
+.swal-title{
+  font-family: sans-serif;
+}
+
+.addbutton {
+  height:30px;
+}
+.swal-text{
+  font-family: sans-serif;
+}
+
 .navcont{
   z-index: 999;
   top:0;
@@ -36,7 +85,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 75px;
-  background-color: black;
+  background-color: #212121;
 }
 
 .title {
@@ -51,7 +100,7 @@ export default {
   display: flex;
   flex-direction: row;
   color: white;
-  background-color: black;
+  background-color: #212121;
   justify-content: space-around;
   align-items: center;
   font-size: 1.5em;
@@ -66,7 +115,7 @@ export default {
   justify-content: center;
 }
 .menu div:hover{
-  background-color: lightskyblue;
+  background-color: darkgrey;
   text-decoration: underline;
 }
 
@@ -77,8 +126,8 @@ export default {
 
 }
 
-#searchbox {  
-  background-color: black;
+#searchbox {
+  background-color: #212121;
   color: white;
   font-size:20px;
   height: 40px;
@@ -92,5 +141,3 @@ export default {
 }
 
 </style>
-
-

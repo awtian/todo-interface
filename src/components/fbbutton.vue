@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'Vuex'
 export default {
   data () {
     return {
@@ -25,10 +26,17 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'toggleLogin', 'loadAll'
+    ]),
     onSignInSuccess (response) {
-      FB.api('/me', dude => {
-        console.log(`Good to see you, ${dude.name}, ${dude.email}.`)
-        console.log(`Good to see you, ${JSON.stringify(dude)}.`)
+      FB.api('/me', {fields: 'name,email,id'}, dude => {
+        let fbtoken = response.authResponse.accessToken
+        axios.post('http://server.wizawt.com', {token: fbtoken})
+          .then(resp => {
+            window.localStorage.setItem("token", resp.data.jwt)
+            this.toggleLogin(true)
+          }) 
       })
     },
     onSignInError (error) {

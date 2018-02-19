@@ -1,17 +1,33 @@
 <template>
 <div class="container">
   <navbar />
-  <loginpage />
+  <loginpage v-if="!login" />
+  <todo v-else/>
 </div>
 </template>
 
 <script>
 import navbar from '@/components/navbar'
 import loginpage from '@/components/loginpage'
-export default{
+import todo from '@/components/todo'
+import {mapState, mapMutations} from 'Vuex'
+
+export default {
+  methods: {
+    ...mapMutations(['toggleLogin'])
+  },
+  computed: mapState(['login']),
+  created() {
+    if (localStorage.token === undefined) {
+      this.toggleLogin(false)
+    } else {
+      this.toggleLogin(true)
+    }
+  },
   components: {
     navbar,
-    loginpage
+    loginpage,
+    todo
   }
 }
 </script>

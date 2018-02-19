@@ -23,10 +23,6 @@ export default {
 </script>
 
 <style>
-.todo{
-  overflow: hidden;
-  overflow-y: hidden;
-}
 
 #mamak {
   position: absolute;
