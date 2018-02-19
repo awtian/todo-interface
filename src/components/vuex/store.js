@@ -47,6 +47,7 @@ const mutations = {
     state.login = payload
     if (payload === false) {
       localStorage.removeItem('token')
+      state.todos = [];
     }
   },
   loadAll (state) {
