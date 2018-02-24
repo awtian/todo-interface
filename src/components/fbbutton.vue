@@ -32,11 +32,11 @@ export default {
     onSignInSuccess (response) {
       FB.api('/me', {fields: 'name,email,id'}, dude => {
         let fbtoken = response.authResponse.accessToken
-        axios.post('http://server.wizawt.com', {token: fbtoken})
+        axios.post('http://server.wizawt.com', {'token': fbtoken})
           .then(resp => {
-            window.localStorage.setItem("token", resp.data.jwt)
+            window.localStorage.setItem('token', resp.data.jwt)
             this.toggleLogin(true)
-          }) 
+          })
       })
     },
     onSignInError (error) {

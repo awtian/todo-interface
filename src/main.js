@@ -8,10 +8,11 @@ import store from './components/vuex/store'
 import swal from 'sweetalert'
 import axios from 'axios'
 import VModal from 'vue-js-modal'
- 
+
 Vue.use(VModal)
+Vue.prototype.$db = axios
 // Vue.use(swal)
-Vue.use(axios)
+// Vue.use(axios)
 Vue.use(FBSignInButton)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

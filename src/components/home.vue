@@ -17,7 +17,7 @@ export default {
     ...mapMutations(['toggleLogin'])
   },
   computed: mapState(['login']),
-  created() {
+  created () {
     if (localStorage.token === undefined) {
       this.toggleLogin(false)
     } else {
