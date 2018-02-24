@@ -54,7 +54,7 @@ h1 {
   flex-direction: column;
   width: 30%;
   min-height: 150px;
-  background-color: #d7d7d7bd;
+  background-color: #d7d7d7;
   color:white;
   margin-right: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -72,7 +72,8 @@ h1 {
 
 
 .tododesc {
-  min-height: 60px
+  min-height: 60px;
+  color:black;
 }
 
 .tododone {
