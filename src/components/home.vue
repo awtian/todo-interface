@@ -23,6 +23,17 @@ export default {
     } else {
       this.toggleLogin(true)
     }
+    this.$db.get('https://quotes.rest/qod', {headers: {Accept: 'application/json'}})
+    .then(({data}) => {
+      let quote = data.contents.quotes[0]
+      swal({
+        title: quote.title,
+        text: `${quote.quote} - ${quote.author}`,
+        icon: 'success',
+        button: 'makaciww!!',
+      });
+      })
+    .catch(console.error)
   },
   components: {
     navbar,
